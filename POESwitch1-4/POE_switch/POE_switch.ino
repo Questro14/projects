@@ -65,6 +65,8 @@ void setup() {
     pinMode(DataControl[i].Led, OUTPUT);
     pinMode(DataControl[i].Control, OUTPUT);
   }
+  drive(MyCore.channel);
+  
 }
 
 void loop() {
@@ -156,41 +158,59 @@ void loop() {
       my_lan.send_str_to_lan(&text);
       Corez.ErrorNum = no_error;
     }
-    else if(my_parser.compStr(my_lan.rx_buf, REQ_STATE_SWITCH)){
-      text = String(MyCore.channel);
+    else if (my_parser.compStr(my_lan.rx_buf, REQ_STATE_SWITCH)) {
+      switch (MyCore.channel) {
+        case (0):
+          MyCore.chSend = 2;
+          break;
+        case (1):
+          MyCore.chSend = 3;
+          break;
+        case (2):
+          MyCore.chSend = 5;
+          break;
+        case (3):
+          MyCore.chSend = 6;
+          break;
+        default:
+          Corez.ErrorNum = wrong_parameter;
+          break;
+
+      }
+      text = String(MyCore.chSend);
       my_lan.send_str_to_lan(&text);
       Corez.ErrorNum = no_error;
-      }
-    else if(my_parser.compStr(my_lan.rx_buf, CMD_STATE_SWITCH1)){
+    }
+    else if (my_parser.compStr(my_lan.rx_buf, CMD_STATE_SWITCH1)) {
       MyCore.channel = 0;
       Corez.ErrorNum = no_error;
-      }
-      else if(my_parser.compStr(my_lan.rx_buf, CMD_STATE_SWITCH2)){
+    }
+    else if (my_parser.compStr(my_lan.rx_buf, CMD_STATE_SWITCH2)) {
       MyCore.channel = 1;
       Corez.ErrorNum = no_error;
-      }
-      else if(my_parser.compStr(my_lan.rx_buf, CMD_STATE_SWITCH3)){
+    }
+    else if (my_parser.compStr(my_lan.rx_buf, CMD_STATE_SWITCH3)) {
       MyCore.channel = 2;
       Corez.ErrorNum = no_error;
-      }
-      else if(my_parser.compStr(my_lan.rx_buf, CMD_STATE_SWITCH4)){
+    }
+    else if (my_parser.compStr(my_lan.rx_buf, CMD_STATE_SWITCH4)) {
       MyCore.channel = 3;
       Corez.ErrorNum = no_error;
-      }
+    }
 
-      
+
     else {
       Corez.ErrorNum = wrong_comand;
       text = String(my_error[Corez.ErrorNum].Number) + ", " + my_error[Corez.ErrorNum].Description;
       my_lan.send_str_to_lan(&text);
-      
+
     }
   }
 
   if (my_btn.state == BTN_PRESSED) {
     my_btn.state = BTN_CHECKED;
     ++MyCore.channel;
-    
+
   }
 
 }

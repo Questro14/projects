@@ -14,9 +14,9 @@ class LAN : public EthernetClass, EthernetServer, EthernetClient{
   unsigned char prx_buf;
   char last_rx_byte, rx_byte;
   unsigned char cur_mac[6] = { 0x00, 0xAA, 0xBB, 0xCC, 0xDA, 0x02 };
-  unsigned char cur_ip[4] = { 192, 168, 88, 110 };
+  unsigned char cur_ip[4] = { 192, 168, 00, 100 };
   unsigned char cur_subnet[4] = { 255, 255, 255, 0 };
-  unsigned char cur_gateway[4] = { 192, 168, 212, 1 };
+  unsigned char cur_gateway[4] = { 0, 0, 0, 0 };
 
   EthernetClient client;
   

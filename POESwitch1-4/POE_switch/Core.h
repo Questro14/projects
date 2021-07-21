@@ -24,6 +24,7 @@ struct CoreData{
 class CoreDataClass{
   public:
   int channel = 0;
+  int chSend = 2;
   CoreData *my_core_data;
   CoreDataClass(CoreData *Data);
   void Init(void);
