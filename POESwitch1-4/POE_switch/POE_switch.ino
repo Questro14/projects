@@ -66,7 +66,7 @@ void setup() {
     pinMode(DataControl[i].Control, OUTPUT);
   }
   drive(MyCore.channel);
-  
+
 }
 
 void loop() {
@@ -217,6 +217,9 @@ void loop() {
 
 void drive(int stat) {
   for (int i = 0; i < 4; ++i) {
+    if (i == MyCore.channel) {
+      continue;
+    }
     digitalWrite(DataControl[i].Led, LOW);
     digitalWrite(DataControl[i].Control, LOW);
   }
