@@ -43,7 +43,7 @@ unsigned char IDN_Length = 33;
 
 void config_lan(void) {
 
-  if (!digitalRead(pin_but)) {
+  if (digitalRead(pin_but)) {
     my_rom.Recall_LAN(my_lan.cur_mac, my_lan.cur_ip, my_lan.cur_subnet, my_lan.cur_gateway);
     my_rom.Recall_IDN(IDN, &IDN_Length);
   }

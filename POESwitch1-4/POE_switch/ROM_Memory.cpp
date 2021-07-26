@@ -51,46 +51,9 @@ bool ROM_Memory::Recall_LAN(unsigned char *mac, unsigned char *ip, unsigned char
   }
 }
 
-void ROM_Memory::Store_PM_Coef(float *Coef){
-  byte *pntr = (byte *)Coef;
-  EEPROMClass::write(PM_MARKER_ADDRESS, MARKER_VALUE);
-  EEPROMClass::write(PM_COEF_A + 0, *pntr++);
-  EEPROMClass::write(PM_COEF_A + 1, *pntr++);
-  EEPROMClass::write(PM_COEF_A + 2, *pntr++);
-  EEPROMClass::write(PM_COEF_A + 3, *pntr++);
-  Coef++;
-  pntr = (byte *)Coef;
-  EEPROMClass::write(PM_COEF_B + 0, *pntr++);
-  EEPROMClass::write(PM_COEF_B + 1, *pntr++);
-  EEPROMClass::write(PM_COEF_B + 2, *pntr++);
-  EEPROMClass::write(PM_COEF_B + 3, *pntr++);
-}
 
-bool ROM_Memory::Recall_PM_Coef(float *Coef){
-  byte data[4];
-  byte *pntr = data;
-  float *numb;
-  if(EEPROMClass::read(PM_MARKER_ADDRESS) == MARKER_VALUE){
-    *pntr++ = EEPROMClass::read(PM_COEF_A + 0);
-    *pntr++ = EEPROMClass::read(PM_COEF_A + 1);
-    *pntr++ = EEPROMClass::read(PM_COEF_A + 2);
-    *pntr++ = EEPROMClass::read(PM_COEF_A + 3);
-    numb = (float *)data;
-    *Coef = *numb;
-    Coef++;
-    pntr = data;
-    *pntr++ = EEPROMClass::read(PM_COEF_B + 0);
-    *pntr++ = EEPROMClass::read(PM_COEF_B + 1);
-    *pntr++ = EEPROMClass::read(PM_COEF_B + 2);
-    *pntr++ = EEPROMClass::read(PM_COEF_B + 3);
-    numb = (float *)data;
-    *Coef = *numb;
-    return true;
-  }
-  else{
-    return false;
-  }
-}
+
+
 
 void ROM_Memory::Store_IDN(char *Buf){
   char Length = 0;

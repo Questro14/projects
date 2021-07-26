@@ -28,8 +28,6 @@ class ROM_Memory : public EEPROMClass {
   ROM_Memory(void) : EEPROMClass(){};
   void Store_LAN(unsigned char *mac, unsigned char *ip, unsigned char *snet, unsigned char *gway);
   bool Recall_LAN(unsigned char *mac, unsigned char *ip, unsigned char *snet, unsigned char *gway);
-  void Store_PM_Coef(float *Coef);
-  bool Recall_PM_Coef(float *Coef);
   void Store_IDN(char *Buf);
   bool Recall_IDN(char *Buf, unsigned char *Length);
 };
